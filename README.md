@@ -1,4 +1,4 @@
-# eamaxis_besttimetobealive
+# Best time to be alive
 Take Home test for EA-Maxis
 
 Problem Statement
