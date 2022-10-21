@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <cstdlib>
 
 namespace eamaxis {
 
@@ -25,7 +24,7 @@ namespace eamaxis {
                 period_start = true;
             }
             else if (current_total < best_total && period_start) {
-                best_period[1] = i;
+                best_period[1] = i-1;
                 period_start = false;
             }
         }
