@@ -18,7 +18,8 @@ namespace eamaxis {
 
         for (int i = 0; i < MAX_YEARS; ++i) {
             current_total += years[i];
-            if (current_total > best_total) {
+
+            if (current_total == best_total && !period_start || current_total > best_total) {
                 best_total = current_total;
                 best_period[0] = i;
                 period_start = true;

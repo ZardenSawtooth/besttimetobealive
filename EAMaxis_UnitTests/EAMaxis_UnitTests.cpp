@@ -56,5 +56,16 @@ namespace EAMaxisUnitTests
             }
             else Assert::Fail();
         }
+
+        TEST_METHOD(InputTestCase4) {
+            std::string filename = test_path + "testcase_4.txt";
+            int years[eamaxis::MAX_YEARS] = { 0 };
+            if (eamaxis::read_file(filename, years)) {
+                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
+                Assert::AreEqual(1725, best_period[0]);
+                Assert::AreEqual(1727, best_period[1]);
+            }
+            else Assert::Fail();
+        }
     };
 }
