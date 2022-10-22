@@ -30,7 +30,7 @@ namespace eamaxis {
             }
         }
 
-        if (best_period[1] < best_period[0])
+        if (best_period[1] < best_period[0] || best_period[1] == 0)
             best_period[1] = MAX_YEARS-1;
         return best_period;
     }
