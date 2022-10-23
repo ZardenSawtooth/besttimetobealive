@@ -14,91 +14,71 @@ namespace EAMaxisUnitTests
         TEST_METHOD(TestFileReadFail) {
             std::string filename = "test/testcase_fake.txt";
             int years[eamaxis::MAX_YEARS] = { 0 };
-            Assert::IsFalse(eamaxis::read_file(filename, years));
+            Assert::IsFalse(eamaxis::read_dates(filename, years, eamaxis::MAX_YEARS));
         }
 
         TEST_METHOD(TestFileReadSuccess) {
             std::string filename = test_path + "testcase_fileread.txt";
             int years[eamaxis::MAX_YEARS] = { 0 };
-            Assert::IsTrue(eamaxis::read_file(filename, years));
+            Assert::IsTrue(eamaxis::read_dates(filename, years, eamaxis::MAX_YEARS));
         }
 
-        TEST_METHOD(InputTestCase_1) {
+        TEST_METHOD(InputTestCase_IncorrectFile) {
+            std::string filename = test_path + "testcase_fake.txt";
+
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(0, best_period[0]);
+            Assert::AreEqual(0, best_period[1]);
+        }
+
+        TEST_METHOD(InputTestCase_OverlappingLifespan) {
             std::string filename = test_path + "testcase_1.txt";
 
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1702, best_period[0]);
-                Assert::AreEqual(1719, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1702, best_period[0]);
+            Assert::AreEqual(1719, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_2) {
+        TEST_METHOD(InputTestCase_OverlappingNestedLifespan) {
             std::string filename = test_path + "testcase_2.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1709, best_period[0]);
-                Assert::AreEqual(1710, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1709, best_period[0]);
+            Assert::AreEqual(1710, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_3) {
+        TEST_METHOD(InputTestCase_ConsecutiveYearWithNoOverlapLifespan) {
             std::string filename = test_path + "testcase_3.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1700, best_period[0]);
-                Assert::AreEqual(1721, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1700, best_period[0]);
+            Assert::AreEqual(1721, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_4) {
+        TEST_METHOD(InputTestCase_NoOverlapLifespan) {
             std::string filename = test_path + "testcase_4.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1725, best_period[0]);
-                Assert::AreEqual(1727, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1725, best_period[0]);
+            Assert::AreEqual(1727, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_5) {
+        TEST_METHOD(InputTestCase_MaxRange) {
             std::string filename = test_path + "testcase_5.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(0000, best_period[0]);
-                Assert::AreEqual(1993, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(0000, best_period[0]);
+            Assert::AreEqual(1993, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_6) {
+        TEST_METHOD(InputTestCase_BirthDeathSameYear) {
             std::string filename = test_path + "testcase_6.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1600, best_period[0]);
-                Assert::AreEqual(1600, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1600, best_period[0]);
+            Assert::AreEqual(1600, best_period[1]);
         }
 
-        TEST_METHOD(InputTestCase_7) {
+        TEST_METHOD(InputTestCase_RandomData) {
             std::string filename = test_path + "testcase_7.txt";
-            int years[eamaxis::MAX_YEARS] = { 0 };
-            if (eamaxis::read_file(filename, years)) {
-                std::vector<int> best_period = eamaxis::best_time_to_be_alive(years);
-                Assert::AreEqual(1503, best_period[0]);
-                Assert::AreEqual(1505, best_period[1]);
-            }
-            else Assert::Fail();
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1503, best_period[0]);
+            Assert::AreEqual(1505, best_period[1]);
         }
     };
 }
