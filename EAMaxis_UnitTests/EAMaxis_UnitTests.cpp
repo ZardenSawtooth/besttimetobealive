@@ -80,5 +80,12 @@ namespace EAMaxisUnitTests
             Assert::AreEqual(1503, best_period[0]);
             Assert::AreEqual(1505, best_period[1]);
         }
+
+        TEST_METHOD(InputTestCase_AllAlive) {
+            std::string filename = test_path + "testcase_8.txt";
+            std::vector<int> best_period = eamaxis::best_time_to_be_alive(filename);
+            Assert::AreEqual(1600, best_period[0]);
+            Assert::AreEqual(1993, best_period[1]);
+        }
     };
 }
